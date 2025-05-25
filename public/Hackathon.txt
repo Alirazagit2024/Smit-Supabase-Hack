@@ -1,0 +1,19 @@
+FullStack Hackathon
+
+Step 1 Vite Setup:                    npm create vite@latest  {Complete} 
+Step 2 Tailwind Install:              npm install tailwindcss @tailwindcss/vite {Complete}
+Step 3 Flowbite Install:              npm install flowbite {Complete} 
+Step 4 React Icons Install:           npm install react-icons {Complete}
+Step 5 Routing Install:               npm install react-router-dom {Complete}
+Step 6 Secure Routing: Complete
+Step 7 Supabase Install:              npm install @supabase/supabase-js
+1-) Authentication: Complete
+2-) Project
+3-) Table
+Step 8 Folder Structure: Complete
+Step 9 Toast Alert/Notification Install: npm i react-toastify {Complete}
+Step 10 AOS Animation Install:            npm install aos {Complete}
+Step 11 Dark/Light Theme Install: Complete
+Step 12 Fonts Install: Complete
+Step 13 Name Show: Complete
+Step 14 SEO: Complete
