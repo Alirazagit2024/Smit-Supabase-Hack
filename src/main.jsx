@@ -42,11 +42,11 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 // CSS
 import './index.css';
 import Userform from './pages/ParticipantForm/ParticipantForm.jsx';
-import UserDashboard from './pages/user-dashboard/UserDashboard.jsx';
 import AdminDashboard from './pages/admin-dashboard/AdminDashboard.jsx';
 import EventPage from './pages/eventnamepage/eventnamepage.jsx';
 import Manageevents from './pages/manage-events/manageevents.jsx';
 import ParticipantsPage from './pages/participants/participants.jsx';
+import UserDashboard from './pages/user-dashboard/UserDashboard.jsx';
 
 // Component to handle conditional chat rendering
 const ChatRoute = () => {
