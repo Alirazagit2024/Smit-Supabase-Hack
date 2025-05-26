@@ -43,7 +43,7 @@ function Login() {
   const handleOAuthLogin = async (provider) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: "smit-supabase-hack.vercel.app" },
+      options: { redirectTo: "https://smit-supabase-hack.vercel.app" },
     });
 
     if (error) {
