@@ -17,7 +17,7 @@ function Reset() {
     const { data, error } = await supabase.auth.resetPasswordForEmail(
       trimmedEmail,
       {
-        redirectTo: "smit-supabase-hack.vercel.app/update-password",
+        redirectTo: "https://smit-supabase-hack.vercel.app/update-password",
       }
     );
 
