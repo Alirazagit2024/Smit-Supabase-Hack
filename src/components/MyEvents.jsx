@@ -1,46 +1,40 @@
 import React, { useState, useEffect } from "react";
-import supabase from "../lib/supabase"; // Adjust path to your Supabase client
+import supabase from "../lib/supabase";
 
 export default function MyEvents() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userRole, setUserRole] = useState("user");
 
-  // Fetch user's events from Supabase on component mount
   useEffect(() => {
     const fetchMyEvents = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        // Check if user is authenticated
         const { data: { user }, error: authError } = await supabase.auth.getUser();
         if (authError || !user) {
-          console.error("Authentication error:", authError);
           setError("You must be logged in to view your events.");
           setLoading(false);
           return;
         }
 
-        console.log("Authenticated user:", user); // Debug: Log user details
+        const role = user.user_metadata?.role || "user";
+        setUserRole(role);
 
-        // Fetch events where created_by matches the user's ID
-        const { data, error } = await supabase
-          .from("events")
-          .select("id, title, description, date_time, location, category, image_url, status")
-          .eq("created_by", user.id)
-          .order("created_at", { ascending: false });
+        let query = supabase.from("events").select("*");
+        if (role !== "admin") query = query.eq("created_by", user.id);
+        query = query.order("created_at", { ascending: false });
 
+        const { data, error } = await query;
         if (error) {
-          console.error("Error fetching events:", error);
-          setError(`Failed to load your events: ${error.message}`);
+          setError(`Failed to load events: ${error.message}`);
           return;
         }
 
-        console.log("Fetched events:", data); // Debug: Log fetched data
         setEvents(data || []);
       } catch (err) {
-        console.error("Unexpected error:", err);
         setError(`Unexpected error: ${err.message}`);
       } finally {
         setLoading(false);
@@ -50,73 +44,101 @@ export default function MyEvents() {
     fetchMyEvents();
   }, []);
 
+  const updateStatus = async (id, newStatus) => {
+    const { error } = await supabase
+      .from("events")
+      .update({ status: newStatus })
+      .eq("id", id);
+
+    if (error) {
+      alert("Failed to update status: " + error.message);
+    } else {
+      setEvents((prev) =>
+        prev.map((event) =>
+          event.id === id ? { ...event, status: newStatus } : event
+        )
+      );
+    }
+  };
+
   return (
-    <div className="flex">
-      <div className="p-6 w-full">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">My Events</h1>
+    <div className="flex justify-center px-4 py-4 bg-gray-100 min-h-screen">
+      <div className="w-full max-w-7xl">
+        <h1 className="text-4xl font-bold mb-8 text-gray-800 text-center">
+          My Events
+        </h1>
 
         {error && (
-          <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+          <div className="mb-6 p-4 bg-red-100 text-red-700 border border-red-200 rounded-lg">
             {error}
           </div>
         )}
 
         {loading ? (
-          <div className="text-center text-gray-500">Loading your events...</div>
+          <div className="text-center text-black text-lg">Loading events...</div>
+        ) : events.length === 0 ? (
+          <div className="text-center text-gray-500">No events found.</div>
         ) : (
-          <div className="overflow-x-auto bg-white rounded-lg shadow-md border border-gray-200">
-            <table className="min-w-full text-sm text-left text-gray-700">
-              <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
-                <tr>
-                  <th className="px-6 py-3">S.No</th>
-                  <th className="px-6 py-3">Event Title</th>
-                  <th className="px-6 py-3">Date & Time</th>
-                  <th className="px-6 py-3">Location</th>
-                  <th className="px-6 py-3">Category</th>
-                  <th className="px-6 py-3">Status</th>
-                  <th className="px-6 py-3">Image</th>
-                </tr>
-              </thead>
-              <tbody>
-                {events.map((event, index) => (
-                  <tr
-                    key={event.id}
-                    className="border-b hover:bg-gray-50 transition-all"
-                  >
-                    <td className="px-6 py-4">{index + 1}</td>
-                    <td className="px-6 py-4">{event.title}</td>
-                    <td className="px-6 py-4">
-                      {new Date(event.date_time).toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4">{event.location}</td>
-                    <td className="px-6 py-4">{event.category || "N/A"}</td>
-                    <td className="px-6 py-4 capitalize">{event.status}</td>
-                    <td className="px-6 py-4">
-                      {event.image_url ? (
-                        <img
-                          src={event.image_url}
-                          alt={event.title}
-                          className="w-16 h-16 object-cover rounded"
-                        />
-                      ) : (
-                        "No Image"
-                      )}
-                    </td>
-                  </tr>
-                ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6">
+            {events.map((event, index) => (
+              <div
+                key={event.id}
+                className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
+              >
+                <div className="p-4 border-b">
+                  <h2 className="text-xl font-semibold text-gray-800">{event.title}</h2>
+                </div>
 
-                {events.length === 0 && (
-                  <tr>
-                    <td
-                      colSpan="7"
-                      className="px-6 py-4 text-center text-gray-500"
-                    >
-                      You have not created any events yet.
-                    </td>
-                  </tr>
+                {event.image_url ? (
+                  <img
+                    src={event.image_url}
+                    alt={event.title}
+                    className="w-full h-48 object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-48 flex items-center justify-center text-gray-400 italic border-b">
+                    No Image
+                  </div>
                 )}
-              </tbody>
-            </table>
+
+                <div className="p-4 flex-1 flex flex-col gap-2 text-sm text-gray-700">
+                  <div><strong>Date & Time:</strong> {new Date(event.date_time).toLocaleString()}</div>
+                  <div><strong>Location:</strong> {event.location}</div>
+                  <div><strong>Category:</strong> {event.category || "N/A"}</div>
+                  <div>
+                    <strong>Status:</strong>{" "}
+                    <span
+                      className={`inline-block px-2 py-1 rounded-full text-xs font-semibold
+                        ${event.status === "approved"
+                          ? "bg-green-100 text-green-800"
+                          : event.status === "rejected"
+                          ? "bg-red-100 text-red-800"
+                          : "bg-yellow-100 text-yellow-800"
+                        }`}
+                    >
+                      {event.status || "Pending"}
+                    </span>
+                  </div>
+                </div>
+
+                {userRole === "admin" && (
+                  <div className="p-4 border-t flex justify-center gap-4">
+                    <button
+                      onClick={() => updateStatus(event.id, "approved")}
+                      className="px-4 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => updateStatus(event.id, "rejected")}
+                      className="px-4 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
+                    >
+                      Reject
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         )}
       </div>

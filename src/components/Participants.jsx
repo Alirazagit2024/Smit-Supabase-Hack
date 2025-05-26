@@ -30,7 +30,7 @@ export default function Participants() {
         </h1>
 
         <div className="overflow-x-auto bg-white rounded-lg shadow-md border border-gray-200">
-          <table className="min-w-full text-sm text-left text-gray-700">
+          <table className="min-w-full whitespace-nowrap text-sm text-left text-gray-700">
             <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
               <tr>
                 <th className="px-6 py-3">S.No</th>

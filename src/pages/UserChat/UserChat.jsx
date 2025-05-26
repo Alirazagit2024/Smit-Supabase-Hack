@@ -31,7 +31,7 @@ const UserChat = () => {
         .order('created_at', { ascending: true });
       
       if (error) {
-        console.error('Error fetching messages:', error);
+        // console.error('Error fetching messages:', error);
         toast.error('Failed to load messages');
       } else {
         setMessages(data);
@@ -85,7 +85,7 @@ const UserChat = () => {
       .insert(messageData);
 
     if (error) {
-      console.error('Error sending message:', error);
+      // console.error('Error sending message:', error);
       toast.error(`Failed to send message: ${error.message}`);
     } else {
       setNewMessage('');
@@ -99,12 +99,12 @@ const UserChat = () => {
       {/* Floating Chat Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-24 right-6 z-50 p-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+        className="fixed bottom-4 right-4 z-50 p-4 bg-[#FF6900] text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
         aria-label="Open chat"
       >
         <BsChatDots className="h-6 w-6" />
         {messages.length > 0 && (
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 bg-black text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
             {messages.length}
           </span>
         )}
@@ -122,14 +122,14 @@ const UserChat = () => {
           {/* Chat Container */}
           <div className="relative w-full max-w-md h-[85vh] bg-white rounded-xl shadow-2xl flex flex-col z-50 overflow-hidden border border-gray-100">
             {/* Header */}
-            <div className="bg-green-600 p-4 text-white flex justify-between items-center">
+            <div className="bg-[#FF6900] p-4 text-white flex justify-between items-center">
               <div className="flex items-center space-x-2">
                 <BsChatDots className="h-5 w-5" />
                 <h2 className="text-lg font-semibold">Support Chat</h2>
               </div>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded-full hover:bg-green-700 transition"
+                className="p-1 rounded-full hover:bg-[#FF6900] transition"
                 aria-label="Close chat"
               >
                 <IoClose className="h-5 w-5" />
@@ -138,7 +138,7 @@ const UserChat = () => {
 
             {/* User Status */}
             {user && (
-              <div className="px-4 py-2 bg-green-50 text-sm text-green-800 flex items-center">
+              <div className="px-4 py-2 bg-green-50 text-sm text-[#FF6900] flex items-center">
                 <FiUser className="mr-2" />
                 {userName || user.email} ({role || 'user'})
               </div>
@@ -159,7 +159,7 @@ const UserChat = () => {
                     <div
                       className={`max-w-xs px-4 py-2 rounded-lg shadow-sm ${
                         msg.user_id === user?.id 
-                          ? 'bg-green-500 text-white rounded-br-none' 
+                          ? 'bg-[#FF6900] text-white rounded-br-none' 
                           : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
                       }`}
                     >
@@ -190,12 +190,12 @@ const UserChat = () => {
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Type a message..."
-                    className="flex-1 text-black px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="flex-1 text-black px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FF6900] focus:border-transparent"
                     autoFocus
                   />
                   <button
                     type="submit"
-                    className="p-2 px-4 cursor-pointer bg-green-600 text-white rounded-full hover:bg-green-700 transition"
+                    className="p-2 px-4 cursor-pointer bg-[#FF6900] text-white rounded-full hover:bg-[#FF6900] transition"
                   >
                     {/* <BsSendFill className="h-5 w-7" /> */}
                     <IoMdSend className="text-lg" />

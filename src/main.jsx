@@ -67,22 +67,6 @@ const ChatRoute = () => {
   );
 };
 
-// Global Chat Wrapper
-const ChatWrapper = () => {
-  const { user, loading } = useContext(AuthContext);
-
-  // Only show chat icon for authenticated users
-  if (loading || !user) {
-    return null;
-  }
-
-  return (
-    <ErrorBoundary>
-      <UserChat />
-    </ErrorBoundary>
-  );
-};
-
 try {
   ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
@@ -91,17 +75,8 @@ try {
           <AOSProvider>
             <Router>
               <ToastContainer position="top-right" autoClose={3000} />
-              <ChatWrapper /> {/* Global chatbot */}
               <Routes>
                 <Route element={<MainLayout />}>
-                  <Route
-                    path="/chat"
-                    element={
-                      <PrivateRoute>
-                        <ChatRoute />
-                      </PrivateRoute>
-                    }
-                  />
                   <Route
                     path="/"
                     element={
@@ -150,7 +125,7 @@ try {
                       </PrivateRoute>
                     }
                   />
-                   <Route
+                  <Route
                     path="/admin-dashboard"
                     element={
                       <PrivateRoute>
@@ -158,7 +133,7 @@ try {
                       </PrivateRoute>
                     }
                   />
-                   <Route
+                  <Route
                     path="/my-events"
                     element={
                       <PrivateRoute>
@@ -166,7 +141,7 @@ try {
                       </PrivateRoute>
                     }
                   />
-                   <Route
+                  <Route
                     path="/manage-events"
                     element={
                       <PrivateRoute>
@@ -182,7 +157,7 @@ try {
                       </PrivateRoute>
                     }
                   />
-                    <Route
+                  <Route
                     path="/form"
                     element={
                       <PrivateRoute>

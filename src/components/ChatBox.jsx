@@ -98,7 +98,7 @@ const ChatBox = () => {
       {/* Floating Chat Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-24 right-6 z-50 p-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+        className="fixed bottom-6 right-6 z-50 p-4 bg-gray-500 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
         aria-label="Open chat"
       >
         <BsChatDots className="h-6 w-6" />

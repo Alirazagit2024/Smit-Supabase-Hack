@@ -1,12 +1,30 @@
-# React + Vite
+# Events Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Events Management System! This is a web-based application designed to help manage events efficiently, allowing users to sign up, log in, and interact with event-related features. The system is built with a focus on user authentication and role-based access.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Events Management System provides a platform to:
+- Create, manage, and view events.
+- Allow users to register and participate in events.
+- Provide an admin dashboard for managing event details and participants.
+- Ensure secure authentication and authorization.
 
-## Expanding the ESLint configuration
+This system is ideal for organizing workshops, conferences, or any community-driven events, with a user-friendly interface and robust backend support.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+Admin Access
+Admin can log in with the following credentials:
+Email: admin@gmail.com
+Password: 12341234
+
+### Prerequisites
+- Node.js and npm installed on your machine.
+- A Supabase account for authentication and database management.
+- A code editor (e.g., VS Code).
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>

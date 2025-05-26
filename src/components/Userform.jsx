@@ -47,7 +47,7 @@ const EventFormInput = () => {
           .upload(filePath, image);
 
         if (uploadError) {
-          console.error("Storage Upload Error:", uploadError);
+          // console.error("Storage Upload Error:", uploadError);
           alert("Image upload failed: " + uploadError.message);
           return;
         }
@@ -57,7 +57,7 @@ const EventFormInput = () => {
           .getPublicUrl(filePath);
 
         imageUrl = data.publicUrl;
-        console.log("Public URL:", imageUrl);
+        // console.log("Public URL:", imageUrl);
       }
 
       // Insert data into events table
@@ -75,7 +75,7 @@ const EventFormInput = () => {
       ]);
 
       if (insertError) {
-        console.error("Insert Error:", insertError);
+        // console.error("Insert Error:", insertError);
         alert("Error saving event: " + insertError.message);
         return;
       }
@@ -95,7 +95,7 @@ const EventFormInput = () => {
         fileInputRef.current.value = ""; // Reset file input
       }
     } catch (error) {
-      console.error("Unexpected Error:", error);
+      // console.error("Unexpected Error:", error);
       alert("Unexpected error: " + error.message);
     }
   };

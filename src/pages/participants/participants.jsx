@@ -3,7 +3,7 @@ import Participants from '../../components/Participants'
 
 function ParticipantsPage() {
   return (
-    <div>
+    <div className='overflow-x-auto text-black w-full hide-scrollbar'>
         <Participants/>
     </div>
   )

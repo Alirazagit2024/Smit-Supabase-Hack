@@ -45,7 +45,7 @@ const UserDashboard = () => {
       {/* Main Content */}
       <div className="flex-1 text-black p-6">
         <h1 className="text-3xl font-bold">
-          Hi {userName?.toUpperCase()} ({role}), Dashboard
+          Hi {userName?.toUpperCase()}, Dashboard
         </h1>
         <p className="mt-4">Welcome to your dashboard!</p>
 

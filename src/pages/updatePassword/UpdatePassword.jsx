@@ -71,132 +71,118 @@ function UpdatePassword() {
   };
 
   return (
-    <div>
-      <div className="fixed inset-0 flex items-center justify-center p-4 bg-gray-50">
-        <div className="w-full max-w-md mx-auto">
-          {/* Main Card */}
-          <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-lg">
-            {/* Header */}
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-600 flex items-center justify-center shadow-md">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
-              </div>
-              <h1 className="text-2xl font-bold text-gray-800">
-                Reset Your Password
-              </h1>
-              <p className="text-gray-500 mt-2 text-sm">
-                Enter a new password below to update your account
-              </p>
-            </div>
-
-            {/* Form */}
-            <form className="space-y-4" onSubmit={handlePasswordUpdate}>
-              <div>
-                <label
-                  htmlFor="newPassword"
-                  className="block text-xs font-medium text-gray-600 mb-1 uppercase tracking-wider"
-                >
-                  New Password
-                </label>
-                <div className="relative">
-                  <input
-                    id="newPassword"
-                    type={showNewPassword ? "text" : "password"}
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value.trimStart())}
-                    onBlur={(e) => setNewPassword(e.target.value.trim())}
-                    placeholder="Enter your new password"
-                    className="w-full text-black text-sm pr-10 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-all placeholder-gray-400"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={toggleNewPassword}
-                    aria-label={
-                      showNewPassword ? "Hide password" : "Show password"
-                    }
-                    className="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                  >
-                    {showNewPassword ? (
-                      <AiOutlineEye className="text-lg" />
-                    ) : (
-                      <AiOutlineEyeInvisible className="text-lg" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-xs font-medium text-gray-600 mb-1 uppercase tracking-wider"
-                >
-                  Confirm Password
-                </label>
-                <div className="relative">
-                  <input
-                    id="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    value={confirmPassword}
-                    onChange={(e) =>
-                      setConfirmPassword(e.target.value.trimStart())
-                    }
-                    onBlur={(e) => setConfirmPassword(e.target.value.trim())}
-                    placeholder="Confirm your new password"
-                    className="w-full text-black text-sm pr-10 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-all placeholder-gray-400"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={toggleConfirmPassword}
-                    aria-label={
-                      showConfirmPassword ? "Hide password" : "Show password"
-                    }
-                    className="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                  >
-                    {showConfirmPassword ? (
-                      <AiOutlineEye className="text-lg" />
-                    ) : (
-                      <AiOutlineEyeInvisible className="text-lg" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {message && (
-                <div
-                  className={`text-center text-sm p-2 rounded-lg ${
-                    message.includes("success")
-                      ? "bg-green-50 text-green-600"
-                      : "bg-red-50 text-red-600"
-                  }`}
-                >
-                  {message}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                className="w-full cursor-pointer transition-all duration-200 hover:bg-blue-700 bg-blue-600 text-white py-2.5 rounded-lg font-medium shadow-sm hover:shadow-md active:scale-[0.98]"
-              >
-                Update Password
-              </button>
-            </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
+      <div className="w-full max-w-md p-8 bg-gray-800 text-white rounded-xl shadow-lg">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <div className="w-16 h-16 mx-auto bg-[#FF6900] text-white rounded-full flex items-center justify-center shadow-md">
+            <svg
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+              />
+            </svg>
           </div>
+          <h1 className="text-2xl font-bold mt-4">Reset Your Password</h1>
+          <p className="text-gray-400 text-sm mt-2">
+            Enter a new password below to update your account
+          </p>
         </div>
+
+        {/* Form */}
+        <form className="space-y-4" onSubmit={handlePasswordUpdate}>
+          <div>
+            <label
+              htmlFor="newPassword"
+              className="block text-sm text-gray-300 mb-1"
+            >
+              New Password
+            </label>
+            <div className="relative">
+              <input
+                id="newPassword"
+                type={showNewPassword ? "text" : "password"}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value.trimStart())}
+                onBlur={(e) => setNewPassword(e.target.value.trim())}
+                placeholder="Enter your new password"
+                className="w-full px-4 py-2 rounded border border-gray-600 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={toggleNewPassword}
+                aria-label={showNewPassword ? "Hide password" : "Show password"}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+              >
+                {showNewPassword ? (
+                  <AiOutlineEye className="text-lg" />
+                ) : (
+                  <AiOutlineEyeInvisible className="text-lg" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm text-gray-300 mb-1"
+            >
+              Confirm Password
+            </label>
+            <div className="relative">
+              <input
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value.trimStart())}
+                onBlur={(e) => setConfirmPassword(e.target.value.trim())}
+                placeholder="Confirm your new password"
+                className="w-full px-4 py-2 rounded border border-gray-600 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={toggleConfirmPassword}
+                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+              >
+                {showConfirmPassword ? (
+                  <AiOutlineEye className="text-lg" />
+                ) : (
+                  <AiOutlineEyeInvisible className="text-lg" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {message && (
+            <div
+              className={`text-center text-sm p-2 rounded-lg ${
+                message.includes("success")
+                  ? "bg-green-900 text-green-300"
+                  : "bg-red-900 text-red-300"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="w-full bg-[#FF6900] hover:bg-orange-600 text-white py-2 rounded-lg font-semibold"
+          >
+            Update Password
+          </button>
+        </form>
       </div>
     </div>
   );

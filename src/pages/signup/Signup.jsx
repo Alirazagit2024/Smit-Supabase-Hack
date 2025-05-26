@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -23,7 +23,7 @@ const Signup = () => {
       options: {
         data: {
           display_name: username.trim(),
-          role: 'user'
+          role: "user",
         },
       },
     });
@@ -61,10 +61,10 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-xl">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
+      <div className="w-full max-w-md p-8 bg-gray-800 text-white rounded-xl shadow-lg">
         <div className="text-center mb-6">
-          <div className="w-16 h-16 mx-auto bg-blue-600 text-white rounded-full flex items-center justify-center shadow">
+          <div className="w-16 h-16 mx-auto bg-[#FF6900] text-white rounded-full flex items-center justify-center shadow-md">
             <svg
               className="h-8 w-8"
               fill="none"
@@ -80,57 +80,57 @@ const Signup = () => {
             </svg>
           </div>
           <h2 className="text-2xl font-bold mt-4">Join Our Community</h2>
-          <p className="text-gray-500 text-sm">Create your account in seconds</p>
+          <p className="text-gray-400 text-sm">Create your account in seconds</p>
         </div>
 
         <div className="space-y-3 mb-6">
           <button
             onClick={handleGoogleLogin}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg flex items-center justify-center gap-2"
+            className="w-full bg-[#FF6900] hover:bg-orange-600 text-white py-2 rounded-lg flex items-center justify-center gap-2"
           >
             <FaGoogle /> Continue with Google
           </button>
           <button
             onClick={handleGitHubLogin}
-            className="w-full bg-gray-800 hover:bg-gray-700 text-white py-2 rounded-lg flex items-center justify-center gap-2"
+            className="w-full bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg flex items-center justify-center gap-2"
           >
             <FaGithub /> Continue with GitHub
           </button>
         </div>
 
         <div className="flex items-center mb-4">
-          <hr className="flex-grow border-gray-300" />
+          <hr className="flex-grow border-gray-600" />
           <span className="px-2 text-gray-400 text-sm">OR</span>
-          <hr className="flex-grow border-gray-300" />
+          <hr className="flex-grow border-gray-600" />
         </div>
 
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label className="block text-sm text-gray-600 mb-1">Full Name</label>
+            <label className="block text-sm text-gray-300 mb-1">Full Name</label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value.trimStart())}
               onBlur={(e) => setUsername(e.target.value.trim())}
               placeholder="Ali Raza"
-              className="w-full px-4 py-2 rounded border focus:outline-none focus:ring focus:ring-blue-400"
+              className="w-full px-4 py-2 rounded border border-gray-600 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">Email</label>
+            <label className="block text-sm text-gray-300 mb-1">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value.trimStart())}
               onBlur={(e) => setEmail(e.target.value.trim())}
               placeholder="aliraza@example.com"
-              className="w-full px-4 py-2 rounded border focus:outline-none focus:ring focus:ring-blue-400"
+              className="w-full px-4 py-2 rounded border border-gray-600 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
               required
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">Password</label>
+            <label className="block text-sm text-gray-300 mb-1">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -138,36 +138,34 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value.trimStart())}
                 onBlur={(e) => setPassword(e.target.value.trim())}
                 placeholder="••••••••"
-                className="w-full px-4 py-2 pr-10 rounded border focus:outline-none focus:ring focus:ring-blue-400"
+                className="w-full px-4 py-2 pr-10 rounded border border-gray-600 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required
               />
               <button
                 type="button"
                 onClick={togglePassword}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-white"
               >
                 {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
               </button>
             </div>
           </div>
-          {/* <div>
-            <label className="block text-sm text-gray-600 mb-1">Role</label>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full px-4 py-2 rounded border focus:outline-none focus:ring focus:ring-blue-400"
-            >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div> */}
+
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold"
+            className="w-full bg-[#FF6900] hover:bg-orange-600 text-white py-2 rounded-lg font-semibold"
           >
             Signup
           </button>
         </form>
+        <div className="bg-gray-800 mt-3 p-4 rounded-xl border border-gray-600 text-center">
+          <p className="text-sm text-gray-400">
+            Already have an account?{" "}
+            <Link to="/login" className="text-orange-400 font-medium hover:underline">
+              Log in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

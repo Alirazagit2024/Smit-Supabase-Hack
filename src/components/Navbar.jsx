@@ -4,7 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import supabase from "../lib/supabase";
 import { Dropdown } from "flowbite";
 import { toast } from "react-toastify";
-import ThemeToggle from "./ThemeToggle";
+import { FaHome, FaTachometerAlt, FaCalendarCheck, FaUsers } from "react-icons/fa";
+// import ThemeToggle from "./ThemeToggle"; // Uncomment if you want the theme toggle
 
 function Navbar() {
   const location = useLocation();
@@ -84,6 +85,20 @@ function Navbar() {
     getUserDataAndInitDropdown();
   }, []);
 
+  // Links for dropdown based on role
+  const adminLinks = [
+    { label: "Dashboard", key: "dashboard", path: "/admin-dashboard" },
+    { label: "Manage Events", key: "events", path: "/my-events" },
+    { label: "Participants", key: "participants", path: "/participants" },
+  ];
+
+  const userLinks = [
+    { label: "Dashboard", key: "dashboard", path: "/user-dashboard" },
+    { label: "Manage Events", key: "events", path: "/my-events" },
+  ];
+
+  const linksToShow = currentRole === "admin" ? adminLinks : currentRole === "user" ? userLinks : [];
+
   return (
     <>
       <nav className="bg-white dark:bg-gray-900 shadow-sm">
@@ -93,20 +108,17 @@ function Navbar() {
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse group"
           >
-            <img
-              loading="lazy"
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8 transition-transform duration-300 group-hover:rotate-12"
-              alt="Flowbite Logo"
-            />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-orange-500">
-              Logo
+            <span className="hidden sm:flex self-center text-2xl font-semibold whitespace-nowrap text-orange-500">
+              Events Management System
+            </span>
+            <span className="sm:hidden self-center text-2xl font-semibold whitespace-nowrap text-orange-500">
+              Events Manage
             </span>
           </Link>
 
           {/* Right Side Controls */}
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
 
             {/* User Dropdown */}
             <div className="relative">
@@ -128,6 +140,7 @@ function Navbar() {
                   alt="user photo"
                 />
               </button>
+
               <div
                 className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                 id="user-dropdown"
@@ -140,54 +153,21 @@ function Navbar() {
                   <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
                     {currentEmail || "No Email"}
                   </span>
-                  <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
-                    Role: {currentRole || "guest"}
-                  </span>
                 </div>
 
                 <ul className="py-2" aria-labelledby="user-menu-button">
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      onClick={handleLinkClick}
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                  {/* Show User Dashboard link for non-admin users */}
-                  {currentRole !== "admin" && (
-                    <li>
+                  {linksToShow.map(({ label, icon, key, path }) => (
+                    <li key={key}>
                       <Link
-                        to="/dashboard"
-                        className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white font-semibold"
                         onClick={handleLinkClick}
+                        to={path}
+                        className={`flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white`}
                       >
-                        User Dashboard
+                        <span className="">{icon}</span> {label}
                       </Link>
                     </li>
-                  )}
-                  <li>
-                    <Link
-                      to="/settings"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      onClick={handleLinkClick}
-                    >
-                      Settings
-                    </Link>
-                  </li>
-                  {/* Show Admin Panel link only for admin role */}
-                  {currentRole === "admin" && (
-                    <li>
-                      <Link
-                        to="/admin"
-                        className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white font-semibold"
-                        onClick={handleLinkClick}
-                      >
-                        Admin Panel
-                      </Link>
-                    </li>
-                  )}
+                  ))}
+
                   <li>
                     <button
                       onClick={handleLogout}
@@ -199,66 +179,6 @@ function Navbar() {
                 </ul>
               </div>
             </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              data-collapse-toggle="navbar-user"
-              onClick={toggleMenu}
-              type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 transition-all duration-200"
-              aria-controls="navbar-user"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
-            </button>
-          </div>
-
-          {/* Navigation Links */}
-          <div
-            className={`items-center justify-between ${
-              isOpen ? "block" : "hidden"
-            } w-full md:flex md:w-auto md:order-1`}
-            id="navbar-user"
-          >
-            {/* <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-              {[
-
-                // Show User Dashboard for non-admin users
-                ...(currentRole !== "admin" ? [{ to: "/dashboard", label: "User Dashboard" }] : []),
-                // Show Admin Panel for admin users
-                ...(currentRole === "admin" ? [{ to: "/admin", label: "Admin Panel" }] : []),
-              ].map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    onClick={handleLinkClick}
-                    className={
-                      `relative block px-3 py-2 rounded-md text-sm md:text-base transition-all duration-300 ` +
-                      (isActive(item.to)
-                        ? "text-orange-500 font-semibold after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-orange-500 after:scale-x-100 after:transition-transform after:duration-300"
-                        : "text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-orange-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300")
-                    }
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul> */}
           </div>
         </div>
       </nav>
